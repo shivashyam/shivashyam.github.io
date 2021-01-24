@@ -1,0 +1,24 @@
+.pagination /deep/ .ngx-pagination .current {
+    background: red;
+  }
+
+  .pagination /deep/ .ngx-pagination li {
+    border: 1px solid #CCCC;
+    margin-right: 0px;
+  }
+
+   .pagination /deep/ .ngx-pagination a::after{
+     display: none;
+   }
+
+   .pagination /deep/ .ngx-pagination li::before{
+     display: none;
+   }
+
+    .pagination /deep/ .ngx-pagination li::after{
+     display: none;
+   }
+
+    .pagination /deep/ .ngx-pagination a::before{
+     display: none;
+   }

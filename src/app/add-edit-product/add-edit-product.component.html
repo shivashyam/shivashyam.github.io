@@ -1,0 +1,127 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="checkout-area">
+                            <div class="col-lg-12">
+                                <div class="billing-info-wrap">
+                                    <h3>Add Product</h3>
+                                    <div class="row">
+                                            <div class="add-product-img col-lg-3">
+                                                <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                            </div>
+                                            <div class="add-product-img col-lg-3">
+                                                <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                            </div>
+                                            <div class="add-product-img col-lg-3">
+                                                <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                            </div>
+                                            <div class="add-product-img col-lg-3">
+                                                <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                            </div>
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="billing-info mb-20">
+                                                <label>Product Name</label>
+                                                <input type="text" [(ngModel)]="product.productName">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="billing-info mb-20">
+                                                <label>Product Description</label>
+                                                <textarea placeholder="" name="message" [(ngModel)]="product.description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="billing-info mb-20">
+                                                <label>User Price</label>
+                                                <input type="text" [(ngModel)]="product.userPrice">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="billing-info mb-20">
+                                                <label>Business Price</label>
+                                                <input type="text" [(ngModel)]="product.businessPrice">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="billing-info mb-20">
+                                                <label>Product Size</label>
+                                                <input type="text" [(ngModel)]="product.productSize"> 
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="billing-select mb-20">
+                                                <label>Discount</label>
+                                                <select>
+                                                    <option *ngIf = "!product.discount">{{product?.discount}}</option>
+                                                    <option>Select</option>
+                                                    <option>$5</option>
+                                                    <option>$10</option>
+                                                    <option>$20</option>
+                                                    <option>$30</option>
+                                                    <option>$40</option>
+                                                    <option>$50</option>
+                                                    <option>$60</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="billing-select mb-20">
+                                                <label>Discount Percentage</label>
+                                                <select>
+                                                    <option *ngIf = "!product.discountPercentage">{{product?.discountPercentage}}</option>
+                                                    <option>Select</option>
+                                                    <option>5%</option>
+                                                    <option>10%</option>
+                                                    <option>20%</option>
+                                                    <option>30%</option>
+                                                    <option>40%</option>
+                                                    <option>50%</option>
+                                                    <option>60%</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="billing-select mb-20" >
+                                                <label>Category</label>
+                                                <select>
+                                                    <option>{{product?.category.categoryName}}</option>
+                                                    <option ></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="billing-info mb-20">
+                                                <label>Stock Available</label>
+                                                <input  *ngIf = "product.numAvailable > 0"  type="text" [(ngModel)]="product.numAvailable">
+                                                <input *ngIf = "!product.numAvailable" type="text" value="0">
+                                            </div>
+                                        </div>
+                                    <div class="col-lg-8">
+                                        <div class="checkout-account mb-3 col-lg-12">
+                                            <input type="checkbox" [checked]="product.isNew">
+                                            <span>New?</span>
+                                        </div>
+                                        <div class="checkout-account mb-3 col-lg-12">
+                                            <input type="checkbox" [checked]="product.isFeatured">
+                                            <span>Featured?</span>
+                                        </div>
+                                        <div class="checkout-account mb-3 col-lg-12">
+                                            <input type="checkbox" [checked]="product.isFragile">
+                                            <span>Fragile?</span>
+                                        </div>
+                                    </div>
+                                    <div class="checkout-account-toggle open-toggle2 mb-30 col-lg-4">
+                                        <button class="btn-hover checkout-btn" type="submit">add Product</button>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

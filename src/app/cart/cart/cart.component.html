@@ -1,0 +1,121 @@
+<app-navbar></app-navbar>
+<div class="cart-main-area pt-90 pb-100">
+    <div class="container" *ngIf = "shoppingCartList?.length > 0">
+       
+        <h3 class="cart-page-title">Your cart items</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <form action="#">
+                    <div class="table-content table-responsive cart-table-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Unit Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                    <th>action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cartItems of shoppingCartList; let i = index">
+                                    <td class="product-thumbnail">
+                                        <a href="#"><img src="assets/img/cart/cart-1.png" alt=""></a>
+                                    </td>
+                                    <td class="product-name"><a href="#">{{cartItems?.product.productName}}</a></td>
+                                    <td class="product-price-cart"><span class="amount">{{cartItems?.product.userPrice | currency:'CAD'}}</span></td>
+                                    <td class="product-quantity">
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box" type="number" name="qtybutton"
+                                            value="{{cartItems?.quantity}}"
+                                            (blur)="updateProductQuantity($event, cartItems.cartDetailsId)">
+                                        </div>
+                                    </td>
+                                    <td class="product-subtotal">{{cartItems?.orderTotal | currency:'CAD'}}</td>
+                                    <td class="product-remove">
+                                        <!-- <a><i class="fa fa-pencil"></i></a> -->
+                                        <a (click) = "deleteCartDetail(cartItems.cartDetailsId)" ><i class="fa fa-times"></i></a>
+                                   </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="cart-shiping-update-wrapper">
+                                <div class="cart-shiping-update">
+                                    <!-- <a routerLink = "/products">Continue Shopping</a> -->
+                                </div>
+                                <div class="cart-clear">
+                                    <a routerLink = "/products">Continue Shopping</a>
+                                    <a (click) = "deleteCart()">Clear Shopping Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <app-address></app-address>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="cart-tax">
+                            <div class="title-wrap">
+                                <h4 class="cart-bottom-title section-bg-gray">Estimate Delivery fees</h4>
+                            </div>
+                            <div class="tax-wrapper">
+                                <p>Enter your Event location to get a Delivery estimate.</p>
+                                <div class="tax-select-wrapper">
+                                    <div class="tax-select">
+                                        <label>
+                                            * Zip/Postal Code
+                                        </label>
+                                        <input type="text" [(ngModel)]="zip">
+                                    </div>
+                                    <button class="cart-btn-2" (click) = "calculateDelivery()">Get A Quote</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="discount-code-wrapper">
+                            <div class="title-wrap">
+                               <h4 class="cart-bottom-title section-bg-gray">Use Coupon Code</h4> 
+                            </div>
+                            <div class="discount-code">
+                                <p>Enter your coupon code if you have one.</p>
+                                <form>
+                                    <input type="text" [(ngModel)]="couponCode" required="" name="name">
+                                    <button class="cart-btn-2" (click) = "applyCoupon()">Apply Coupon</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="grand-totall">
+                            <div class="title-wrap">
+                                <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                            </div>
+                            <h5 *ngIf = "!couponSuccess">Total products <span>{{totalOrderAmount | currency:'CAD'}} / day</span></h5>
+                            <h5 *ngIf = "couponSuccess">Original Price <span><s>{{originalOrderTotal | currency:'CAD'}}</s> / day</span></h5>
+                            <h5 *ngIf = "couponSuccess">Discount Price <span>{{totalAmountAfterDiscount | currency:'CAD'}} / day</span></h5>
+                            <div class="total-shipping">
+                                <h5>Total shipping</h5>
+                                <ul>
+                                    <li><input type="radio"> Delivery <span>$20.00</span></li>
+                                    <li><input type="radio"> Pickup <span>FREE</span></li>
+                                </ul>
+                            </div>
+                            <h4 class="grand-totall-title" *ngIf = "couponSuccess">Grand Total  <span>{{totalAmountAfterDiscount | currency:'CAD'}}</span></h4>
+                            <h4 class="grand-totall-title" *ngIf = "!couponSuccess">Grand Total  <span>{{totalOrderAmount | currency:'CAD'}}</span></h4>
+                            <a href="#">Proceed to Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf = "shoppingCartList?.length == 0">
+        No Items in the Cart, Come back later.
+    </div>
+
+</div>

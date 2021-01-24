@@ -1,0 +1,461 @@
+    <!-- Shop Main  -->
+<div class = "container">
+<app-navbar></app-navbar>
+<div>
+    <div class="shop-area pt-95 pb-100">
+        <div class="container">
+            <div class="row flex-row-reverse">
+                <div class="col-lg-9">
+                    <div class="shop-top-bar">
+                        <div class="select-shoing-wrap">
+                            <div class="shop-select">
+                                <select>
+                                    <option value="">Sort by newness</option>
+                                    <option value="">A to Z</option>
+                                    <option value=""> Z to A</option>
+                                    <option value="">In stock</option>
+                                </select>
+                            </div>
+                            <p>Showing 1–12 of {{products?.length}} results</p>
+                        </div>
+                        <div class="shop-tab nav">
+                            <div>
+                                    <a title="Add product"  id="openAddProduct"  data-toggle="modal" data-target="#addProductModal" >
+                                        <i class="fas fa-plus" (click)="onAddProduct()"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shop-bottom-area mt-35">
+                        <div class="tab-content jump">
+                            <div id="shop-1" class="tab-pane active">
+                                <div class="row">
+                                    <div class="col-xl-4 col-md-6 col-lg-6 col-sm-6" *ngFor="let product of products | paginate:{itemsPerPage: 6, currentPage:p}">
+                                        <div class="product-wrap mb-25 scroll-zoom">
+                                            <div class="product-img">
+                                                <a title="Product Edit View" id="openEditProduct"  data-toggle="modal" data-target="#addProductModal" >
+                                                    <img class="default-img" (click)="onEditProduct(product)" src="assets/img/product/pro-1.jpg" alt="">
+                                                    <img class="hover-img" (click)="onEditProduct(product)" src="assets/img/product/pro-1-1.jpg" alt="">
+                                                </a>
+                                                <span class="pink"  *ngIf="product.discountPercentage !==null && product.discountPercentage !== 0">{{product?.discountPercentage}}</span>
+                                                <span class="pink"  *ngIf="product.isNew && !product.isFeatured">New</span>
+                                                <span class="pink"  *ngIf="product.isNew && product.isFeatured">New & Featured</span>
+                                                <span class="discount"  *ngIf="product.discount !==null && product.discount !== 0">${{product?.discount}} off</span>
+                                                <span class="purple"  *ngIf="product.isFeatured && !product.isNew">Featured</span>
+                                                <span class="avble" *ngIf="product.numAvailable !==null && product.numAvailable !== 0">{{product?.numAvailable}} Available</span>
+                                                <span class="na" *ngIf="product.numAvailable ===null || product.numAvailable === 0">Not Available</span>
+                                                <div class="product-action">
+                                                    <div class="pro-same-action pro-wishlist">
+                                                        <!-- <a title="Product Edit View"  data-toggle="modal" data-target="#productEditModal" >
+                                                            <i class="pe-7s-like" (click)="onEditProduct(product)"></i>
+                                                        </a> -->
+                                                    </div>
+                                                    <div class="pro-same-action pro-cart">
+                                                        <a (click) = "onAddToCartClick(product)" title="Add To Cart"><i class="pe-7s-cart"></i> Add to cart</a>
+                                                    </div>
+                                                    <div class="pro-same-action pro-quickview" (click)="onSelectProduct(product)">
+                                                        <a title="Quick View"  id="openProductDetail"  data-toggle="modal" data-target="#exampleModal" >
+                                                            <i class="pe-7s-look"></i>
+                                                        </a>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="product-content text-center">
+                                                <h3><a href="product-details.html">{{product?.productName}}</a></h3>
+                                                <div class="product-business-price" *ngIf="user?.businessUser">
+                                                    BusinessPrice:  {{product?.businessPrice | currency:'CAD'}}
+                                                </div>
+                                                <div class="product-price">
+                                                    <span>{{product?.userPrice | currency:'CAD'}}</span>
+                                                    <!-- <span class="old">$ 60.00</span> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <div *ngIf="noProducts" >No Products matched your search results</div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page text-center mt-30">
+                            <ul>
+                                <pagination-controls class="dg-pagination" (pageChange)="p=$event"></pagination-controls>
+                                <!-- <li><a class="prev" href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                <li><a class="active" href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a class="next" href="#"><i class="fa fa-angle-double-right"></i></a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="sidebar-style mr-30">
+                        <div class="sidebar-widget">
+                            <h4 class="pro-sidebar-title">Search </h4>
+                            <div class="pro-sidebar-search mb-50 mt-25">
+                                <form class="pro-sidebar-search-form" action="#">
+                                    <input type="text" name="searchTerm" #searchInput="ngModel" [(ngModel)]="searchInputValue"
+                                    (ngModelChange)="searchProducts()">
+                                    <!-- <button>
+                                        <i class="pe-7s-search"></i>
+                                    </button> -->
+                                </form>
+                            </div>  
+                        </div>
+                        <div class="sidebar-widget">
+                            <h4 class="pro-sidebar-title">Refine By </h4>
+                            <div class="sidebar-widget-list mt-30">
+                                <ul>
+                                    <li>
+                                        <div class="sidebar-widget-list-left">
+                                            <input type="checkbox"
+                                            [(ngModel)]="onSaleValueSelected"
+                                            (ngModelChange)="searchProducts()"> <a href="#">On Sale <span>{{onSaleCount}}</span> </a> 
+                                            <span class="checkmark"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="sidebar-widget-list-left">
+                                            <input type="checkbox" 
+                                            [(ngModel)]="newValueSelected"
+                                            (ngModelChange)="searchProducts()"> <a href="#">New <span>{{newCount}}</span></a> 
+                                            <span class="checkmark"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="sidebar-widget-list-left">
+                                            <input type="checkbox"  [(ngModel)]="featuredValueSelected"
+                                            (ngModelChange)="searchProducts()"> <a href="#">Featured<span>{{featuredCount}}</span> </a>
+                                            <span class="checkmark"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar-widget mt-45">
+                            <h4 class="pro-sidebar-title">Filter By Price </h4>
+                            <div class="price-filter mt-10">
+                                <div class="price-slider-amount">
+                                    <ngx-slider  (userChange)="searchProducts()" [(value)]="userPriceValue" [(highValue)]="userPriceHighValue" [options]="userPriceOptions"></ngx-slider >
+                            </div>
+                        </div>
+                        <div class="sidebar-widget mt-45" *ngIf="user?.businessUser">
+                            <h4 class="pro-sidebar-title">Filter By Business Price </h4>
+                            <div class="price-filter mt-10">
+                                <ngx-slider  (userChange)="searchProducts()" [(value)]="businessPricevalue" [(highValue)]="businessPriceHighvalue" [options]="businessPriceOptions"></ngx-slider >
+                            </div>
+                        </div>
+                        <div class="sidebar-widget mt-50">
+                            <h4 class="pro-sidebar-title">Categories </h4>
+                            <div class="row">
+                            <div class="sidebar-widget-tag mt-25">
+                                <ul>
+                                    <li><a [ngClass]="{'active': tabIndex === 0}" (click) = "selectCategory(0, true)">All</a></li>
+                                </ul>
+                            </div>
+                            <div class="sidebar-widget-tag mt-25" *ngFor="let category of categories">
+                                <ul>
+                                    <li><a [ngClass]="{'active': tabIndex === category.categoryId}" (click) = "selectCategory(category.categoryId, true)">{{category?.categoryName}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-area bg-gray pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4">
+                    <div class="copyright mb-30">
+                        <div class="footer-logo">
+                            <a href="index.html">
+                                <img alt="" src="assets/img/logo/logo.png">
+                            </a>
+                        </div>
+                        <p>© 2020 <a href="#">Flone</a>.<br> All Rights Reserved</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4">
+                    <div class="footer-widget mb-30 ml-30">
+                        <div class="footer-title">
+                            <h3>ABOUT US</h3>
+                        </div>
+                        <div class="footer-list">
+                            <ul>
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="#">Store location</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="#">Orders tracking</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4">
+                    <div class="footer-widget mb-30 ml-50">
+                        <div class="footer-title">
+                            <h3>USEFUL LINKS</h3>
+                        </div>
+                        <div class="footer-list">
+                            <ul>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Support Policy</a></li>
+                                <li><a href="#">Size guide</a></li>
+                                <li><a href="#">FAQs</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="footer-widget mb-30 ml-75">
+                        <div class="footer-title">
+                            <h3>FOLLOW US</h3>
+                        </div>
+                        <div class="footer-list">
+                            <ul>
+                                <li><a href="#">Facebook</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">Instagram</a></li>
+                                <li><a href="#">Youtube</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="footer-widget mb-30 ml-70">
+                        <div class="footer-title">
+                            <h3>SUBSCRIBE</h3>
+                        </div>
+                        <div class="subscribe-style">
+                            <p>Get E-mail updates about our latest shop and special offers.</p>
+                            <div id="mc_embed_signup" class="subscribe-form">
+                                <form id="mc-embedded-subscribe-form" class="validate" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
+                                    <div id="mc_embed_signup_scroll" class="mc-form">
+                                        <input class="email" type="email" required="" placeholder="Enter your email here.." name="EMAIL" value="">
+                                        <div class="mc-news" aria-hidden="true">
+                                            <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
+                                        </div>
+                                        <div class="clear">
+                                            <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    
+    <!-- Product view Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                            <div class="tab-content quickview-big-img">
+                                <div id="pro-1" class="tab-pane fade show active">
+                                    <img src="assets/img/product/quickview-l1.jpg" alt="">
+                                </div>
+                                <div id="pro-2" class="tab-pane fade">
+                                    <img src="assets/img/product/quickview-l2.jpg" alt="">
+                                </div>
+                                <div id="pro-3" class="tab-pane fade">
+                                    <img src="assets/img/product/quickview-l3.jpg" alt="">
+                                </div>
+                                <div id="pro-4" class="tab-pane fade">
+                                    <img src="assets/img/product/quickview-l2.jpg" alt="">
+                                </div>
+                            </div>
+                            <!-- Thumbnail Large Image End -->
+                            <!-- Thumbnail Image End -->
+                            <div class="quickview-wrap mt-15">
+                                <div class="quickview-slide-active owl-carousel nav nav-style-1" role="tablist">
+                                    <a class="active" data-toggle="tab" href="#pro-1"><img src="assets/img/product/quickview-s1.jpg" alt=""></a>
+                                    <a data-toggle="tab" href="#pro-2"><img src="assets/img/product/quickview-s2.jpg" alt=""></a>
+                                    <a data-toggle="tab" href="#pro-3"><img src="assets/img/product/quickview-s3.jpg" alt=""></a>
+                                    <a data-toggle="tab" href="#pro-4"><img src="assets/img/product/quickview-s2.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12">
+                            <div class="product-details-content quickview-content">
+                                <h2>{{selectedProduct?.productName}}</h2>
+                                <div class="product-details-price">
+                                    <span> {{selectedProduct?.userPrice | currency:'CAD'}} </span>
+                                    <!-- <span class="old">$20.00 </span> -->
+                                </div>
+                                <div class="pro-details-rating-wrap">
+                                    <div class="pro-details-business-price" *ngIf="user?.businessUser">
+                                       Business Price: {{selectedProduct?.businessPrice | currency:'CAD'}}
+                                    </div>
+                                </div>
+                                <p>{{selectedProduct?.description}}</p>
+                                <!-- <div class="pro-details-list">
+                                    <ul>
+                                        <li>- 0.5 mm Dail</li>
+                                        <li>- Inspired vector icons</li>
+                                        <li>- Very modern style  </li>
+                                    </ul>
+                                </div> -->
+                                <div class="pro-details-quality">
+                                    <div class="cart-plus-minus">
+                                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="2">
+                                    </div>
+                                    <div class="pro-details-cart btn-hover">
+                                        <a (click) = "onAddToCartClick(selectedProduct)">Add To Cart</a>
+                                    </div>
+                                    <div class="pro-details-wishlist">
+                                        <a href="#"><i class="fa fa-edit"></i></a>
+                                    </div>
+                                    <div class="pro-details-compare">
+                                        <a (click) = "onDeleteProduct(selectedProduct.productId)"><i class="far fa-trash-alt"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product Add Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" *ngIf="showAddEditDialog">
+        <app-add-edit-product [product] = "editProduct"></app-add-edit-product>
+    </div>
+<!-- Edit Product Modal -->
+    <div class="modal fade" id="productEditModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="checkout-area">
+                                    <div class="col-lg-12">
+                                        <div class="billing-info-wrap">
+                                            <h3>Add Product</h3>
+                                            <div class="row">
+                                                <div class="add-product-img col-lg-3">
+                                                    <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                                </div>
+                                                <div class="add-product-img col-lg-3">
+                                                    <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                                </div>
+                                                <div class="add-product-img col-lg-3">
+                                                    <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                                </div>
+                                                <div class="add-product-img col-lg-3">
+                                                    <a href="#"><img alt="" src="assets/img/product/pro-1-1.jpg"></a>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12">
+                                                    <div class="billing-info mb-20">
+                                                        <label>Product Name</label>
+                                                        <input type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="billing-info mb-20">
+                                                        <label>Product Description</label>
+                                                        <textarea placeholder="" name="message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                    <div class="billing-info mb-20">
+                                                        <label>User Price</label>
+                                                        <input type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                    <div class="billing-info mb-20">
+                                                        <label>Business Price</label>
+                                                        <input type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                    <div class="billing-info mb-20">
+                                                        <label>Product Size</label>
+                                                        <input type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="billing-select mb-20">
+                                                        <label>Discount</label>
+                                                        <select>
+                                                            <option>$5</option>
+                                                            <option>$10</option>
+                                                            <option>$20</option>
+                                                            <option>$30</option>
+                                                            <option>$40</option>
+                                                            <option>$50</option>
+                                                            <option>$60</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="billing-select mb-20">
+                                                        <label>Discount Percentage</label>
+                                                        <select>
+                                                            <option>5%</option>
+                                                            <option>10%</option>
+                                                            <option>20%</option>
+                                                            <option>30%</option>
+                                                            <option>40%</option>
+                                                            <option>50%</option>
+                                                            <option>60%</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="billing-select mb-20" >
+                                                        <label>Category</label>
+                                                        <select>
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="billing-info mb-20">
+                                                        <label>Stock Available</label>
+                                                        <input type="text">
+                                                    </div>
+                                                </div>
+                                            <div class="col-lg-8">
+                                                <div class="checkout-account mb-3 col-lg-12">
+                                                    <input class="checkout-toggle2" type="checkbox">
+                                                    <span>New?</span>
+                                                </div>
+                                                <div class="checkout-account mb-3 col-lg-12">
+                                                    <input class="checkout-toggle2" type="checkbox">
+                                                    <span>Featured?</span>
+                                                </div>
+                                                <div class="checkout-account mb-3 col-lg-12">
+                                                    <input class="checkout-toggle2" type="checkbox">
+                                                    <span>Fragile?</span>
+                                                </div>
+                                            </div>
+                                            <div class="checkout-account-toggle open-toggle2 mb-30 col-lg-4">
+                                                <button class="btn-hover checkout-btn" type="submit">add Product</button>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

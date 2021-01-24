@@ -1,0 +1,99 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css';
+@import 'https://use.fontawesome.com/releases/v5.8.1/css/all.css';
+@import "~angular-notifier/styles";
+
+
+td {
+  cursor: pointer;
+}
+.move-right {
+    position: absolute;
+    right: 0;
+  }
+
+  .move-left {
+    position: absolute;
+    left: 0;
+  }
+
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+
+  /* app-product {
+    div {
+      pagination-controls {
+        pagination-template {
+          ul .ngx-pagination {
+            color: #a749ff;
+        }
+      }
+    }
+  }
+  } */
+  
+/* 
+  app-product .dg-pagination .ngx-pagination
+  li .pagination-previous ::before{
+     width: 7rem !important;
+} */
+    app-product .dg-pagination .ngx-pagination
+             li {
+              padding: 5px 10px;
+              border-radius: 25px;
+              line-height: 15px;
+      }
+      app-product .dg-pagination .ngx-pagination
+      li a:hover {
+       padding: 5px 10px;
+       border-radius: 25px;
+       line-height: 16px;
+       background-color: #a749ff ;
+}
+app-product .dg-pagination .ngx-pagination
+      .current {
+       padding: 5px 10px;
+       background-color: #a749ff ;
+       border-radius: 25px;
+       line-height: 15px;
+}
+
+
+app-settings .dg-pagination .ngx-pagination
+li {
+ padding: 5px 10px;
+ border-radius: 25px;
+ line-height: 15px;
+}
+app-settings .dg-pagination .ngx-pagination
+li a:hover {
+padding: 5px 10px;
+border-radius: 25px;
+line-height: 15px;
+background-color: #a749ff ;
+}
+app-settings .dg-pagination .ngx-pagination
+.current {
+padding: 5px 10px;
+background-color: #a749ff ;
+border-radius: 25px;
+line-height: 15px;
+}
+

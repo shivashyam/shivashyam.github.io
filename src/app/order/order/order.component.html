@@ -1,0 +1,224 @@
+
+<div class="container">
+<app-navbar></app-navbar>
+<div class="row">
+    <div class="col-lg-3">
+        <div class = "card"> 
+            <div class="sidebar-style mr-30">
+            <div class="sidebar-widget">
+                <h4 class="pro-sidebar-title">Search </h4>
+                <div class="pro-sidebar-search mb-50 mt-25">
+                    <form class="pro-sidebar-search-form" action="#">
+                        <input type="text" name="searchTerm" #searchInput="ngModel" ngModel
+                        (ngModelChange)="searchOrders(searchInput.value)" type="search"  placeholder="Search here...">
+                        <button>
+                            <i class="pe-7s-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="sidebar-widget">
+                <h4 class="pro-sidebar-title">Order Status </h4>
+                <div class="sidebar-widget-list mt-30">
+                    <ul>
+                        <li>
+                            <div class="sidebar-widget-list-left">
+                                <input type="checkbox" name="searchTerm" #searchInput="ngModel" ngModel
+                                (ngModelChange)="searchOrders('completed')"> <a href="#" class="badge-success">Completed</a> 
+                                <span class="checkmark"></span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sidebar-widget-list-left">
+                                <input type="checkbox" name="searchTerm" #searchInput="ngModel" ngModel
+                                (ngModelChange)="searchOrders('Pending')"> <a href="#" class="badge-warning">Pending</a>  
+                                <span class="checkmark"></span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sidebar-widget-list-left">
+                                <input type="checkbox" name="searchTerm" #searchInput="ngModel" ngModel
+                                (ngModelChange)="searchOrders('Cancelled')"> <a href="#" class="badge-danger">Cancelled</a> 
+                                <span class="checkmark"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-widget">
+                <h4 class="pro-sidebar-title">Delivery Type</h4>
+                <div class="sidebar-widget-list mt-30">
+                    <ul>
+                        <li>
+                            <div class="sidebar-widget-list-left">
+                                <input type="checkbox" name="searchTerm" #searchInput="ngModel" ngModel
+                                (ngModelChange)="searchOrders('Pickup')"> <a href="#" class="badge-pickup">Pickup</a> 
+                                <span class="checkmark"></span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="sidebar-widget-list-left">
+                                <input type="checkbox" name="searchTerm" #searchInput="ngModel" ngModel
+                                (ngModelChange)="searchOrders('Delivery')"><a href="#" class="badge-delivery">Delivery</a>  
+                                <span class="checkmark"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+       
+    </div>
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive project-list">
+                    <table class="table project-table table-centered table-nowrap">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Start</th>
+                                <th scope="col">Placed</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <!-- <tbody *ngFor="let order of orders" > -->
+                            <!-- <tr>
+                                <th scope="row">{{order?.orderNumber}}</th>
+                                <td>Siva Shyam</td>
+                                <td>{{order?.startDate}}</td>
+                                <td>{{order?.orderPlacedDate}}</td>
+                                <td>
+                                    <span class="badge-success"> {{order?.orderStatus}}</span>
+                                </td>
+                                <td>
+                                    <span class="badge-pickup"> {{order?.deliveryType}}</span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr> -->
+                             <tr> 
+                                <th scope="row">1</th>
+                                <td>Siva Shyam</td>
+                                <td>02/5/2019</td>
+                                <td>02/5/2019</td>
+                                <td>
+                                    <span class="badge-warning"> Pending</span>
+                                </td>
+                                <td>
+                                    <span class="badge-delivery"> D</span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Siva Shyam</td>
+                                <td>02/5/2019</td>
+                                <td>02/5/2019</td>
+                                <td>
+                                    <span class="badge-success"> Completed</span>
+                                </td>
+                                <td>
+                                    <span class="badge-pickup"> P</span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Siva Shyam</td>
+                                <td>02/5/2019</td>
+                                <td>02/5/2019</td>
+                                <td>
+                                    <span class="badge-danger"> Cancelled</span>
+                                </td>
+                                <td>
+                                    <span class="badge-delivery"> D</span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Siva Shyam</td>
+                                <td>02/5/2019</td>
+                                <td>02/5/2019</td>
+                                <td>
+                                    <span class="badge-success"> Completed</span>
+                                </td>
+                                <td>
+                                    <span class="badge-pickup"> P</span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Siva Shyam</td>
+                                <td>02/5/2019</td>
+                                <td>02/5/2019</td>
+                                <td>
+                                    <span class="badge-success"> Completed</span>
+                                </td>
+                                <td>
+                                    <span class="badge-pickup"> P</span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end project-list -->
+
+                <div class="pt-3">
+                    <ul class="pagination justify-content-end mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

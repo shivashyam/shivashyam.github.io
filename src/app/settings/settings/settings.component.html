@@ -1,0 +1,188 @@
+<app-navbar></app-navbar>
+<div [hidden]="!isAdmin" class = "container">
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+          <h3>Manage Coupons</h3>
+            <div class="card-body">
+                <div class="table-responsive project-list">
+                    <table class="table project-table table-centered table-nowrap">
+                        <thead>
+                            <tr>
+                                <th scope="col">Coupon Code</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">Expiry Date</th>
+                                <th scope="col">Expired</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Percentage</th>
+                                <th scope="col">ValidForEver</th>
+                                <th scope="col">Actions</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                         <tbody *ngFor="let coupon of discountCoupons | paginate:{itemsPerPage: 3, currentPage:p}" > 
+                             <tr>
+                                <th scope="row">{{ coupon?.couponCode}}</th>
+                                <td *ngIf = "coupon.startDate">{{ coupon?.startDate}}</td>
+                                <td *ngIf = "!coupon.startDate">NA</td>
+                                <td *ngIf = "coupon.endDate">{{ coupon?.endDate}}</td>
+                                <td *ngIf = "!coupon.endDate">NA</td>
+                                <td>
+                                    <span *ngIf = "!coupon.isExpired" class="badge-success"> Active </span>
+                                    <span *ngIf = "coupon.isExpired" class="badge-danger"> Expired </span>
+                                </td>
+                                <td *ngIf = "coupon.discountAmount">{{ coupon?.discountAmount | currency:'CAD'}}</td>
+                                <td *ngIf = "!coupon.discountAmount"> CA $0.00</td>
+                                <td *ngIf = "coupon.discountPercentage">{{ coupon?.discountPercentage}} %</td>
+                                <td *ngIf = "!coupon.discountPercentage"> 0% </td>
+
+                                <td>
+                                    <span *ngIf = "coupon.isValidForever" class="badge-warning"> Yes </span>
+                                    <span *ngIf = "!coupon.isValidForever" class="badge-danger"> No </span>
+                                </td>
+                                <td>
+                                    <div class="action">
+                                        <a class="text-success mr-4" id="openCouponModal"  data-toggle="modal" data-target="#openCouponView" (click) = "onClickEditCoupon(coupon)"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                        <a class="text-danger" (click) = "onDeleteCoupon(coupon.discountId)"> <i class="fa fa-remove h5 m-0"></i></a>
+                                    </div>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                    <ul class = "settings-pagination col-lg-12">
+                      <pagination-controls class="dg-pagination" (pageChange)="p=$event"></pagination-controls>
+                  </ul>
+                    <form>
+                      <!-- <input type="text" [(ngModel)]="couponCode" required="" name="name"> -->
+                      <button class="settings-btn" id="openCouponAddModal"  data-toggle="modal" data-target="#openCouponView" (click) = "onClickAddCoupon()">Add New Coupon</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="card">
+    <form #resetPasswordForm="ngForm" (ngSubmit)="onResetPassword(resetPasswordForm)">
+      <fieldset>
+        <legend>User Password Management</legend>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" name="reset-password-email" required ngModel class="form-control"
+            placeholder="Enter email (example@email.com)">
+          <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <button type="submit" [disabled]="resetPasswordForm.invalid" class="settings-btn">
+          <i *ngIf="refreshing" class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;
+          <span *ngIf="refreshing">Loading...</span>
+          <span *ngIf="!refreshing">Reset Password</span>
+        </button>
+      </fieldset>
+    </form>
+</div>
+    <br>
+    <br>
+    <hr>
+    <div>TODO in this Component</div>
+    <hr>
+    <div>change logo</div>
+    <div>change header info or coupon or any other matter</div>
+    <br>
+    <br>
+    <hr>
+
+
+
+    <div class="modal fade" id="openCouponView" tabindex="-1" role="dialog" *ngIf = "editSelected">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="checkout-area">
+                                <div class="col-lg-12">
+                                    <div class="billing-info-wrap">
+                                        <h3>Edit Coupon</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="billing-info mb-20">
+                                                    <label>Coupon Code</label>
+                                                    <input type="text" [(ngModel)]="editCoupon.couponCode">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <div class="billing-info mb-20">
+                                                    <label>Start Date</label>
+                                                    <input type="date" [(ngModel)]="editCoupon.startDate">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                              <div class="billing-info mb-20">
+                                                  <label>End Date</label>
+                                                  <input type="date" [(ngModel)]="editCoupon.endDate">
+                                              </div>
+                                          </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <div class="billing-select mb-20">
+                                                    <label>Discount Amount</label>
+                                                    <select>
+                                                        <option *ngIf = "editCoupon.discountAmount">{{editCoupon.discountAmount}}</option>
+                                                        <option *ngIf = "!editCoupon.discountAmount">Select</option>
+                                                        <option>$5</option>
+                                                        <option>$10</option>
+                                                        <option>$20</option>
+                                                        <option>$30</option>
+                                                        <option>$40</option>
+                                                        <option>$50</option>
+                                                        <option>$60</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                              <div class="billing-select mb-20">
+                                                  <label>Discount Percentage</label>
+                                                  <select>
+                                                    <option *ngIf = "editCoupon.discountPercentage">{{editCoupon.discountAmount}}</option>
+                                                    <option *ngIf = "!editCoupon.discountPercentage">Select</option>
+                                                      <option>5%</option>
+                                                      <option>10%</option>
+                                                      <option>20%</option>
+                                                      <option>30%</option>
+                                                      <option>40%</option>
+                                                      <option>50%</option>
+                                                      <option>60%</option>
+                                                  </select>
+                                              </div>
+                                          </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <div class="billing-info mb-20">
+                                                  <input type="checkbox" [checked]="editCoupon.isExpired">
+                                                  <span>Expired?</span>
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <div >
+                                                  <input type="checkbox" [checked]="editCoupon.isValidForever">
+                                                  <span>Valid Forever?</span>
+                                                </div>
+                                            </div>
+                                        <div class="checkout-account-toggle open-toggle2 mb-30 col-lg-4">
+                                            <button class="btn-hover checkout-btn" type="submit">Save Coupon</button>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+</div>
+    
+  </div>
+ 

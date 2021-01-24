@@ -1,0 +1,33 @@
+.card{
+    margin-top: 20px;
+    padding: 20px;
+}
+.badge-success{
+    border-radius: 15px;
+    padding: 2px 8px;
+    }
+    
+.badge-warning{
+    border-radius: 15px;
+    padding: 2px 8px;
+    }
+
+.badge-pickup{
+    background-color: rgb(168, 98, 201);
+    border-radius: 15px;
+    padding: 2px 8px; 
+}
+.badge-delivery{
+    background-color: rgb(83, 233, 225);
+    border-radius: 15px;
+    padding: 2px 8px; 
+}
+.badge-danger{
+    border-radius: 15px;
+    padding: 2px 8px; 
+}
+
+
+.sidebar-widget{
+    margin-bottom: 20px;
+}

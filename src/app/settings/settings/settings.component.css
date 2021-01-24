@@ -1,0 +1,52 @@
+.card{
+    margin-top: 20px;
+    padding: 20px;
+}
+.badge-success{
+    border-radius: 15px;
+    padding: 2px 8px;
+    }
+    
+.badge-warning{
+    border-radius: 15px;
+    padding: 2px 8px;
+    }
+
+.badge-pickup{
+    background-color: rgb(168, 98, 201);
+    border-radius: 15px;
+    padding: 2px 8px; 
+}
+.badge-delivery{
+    background-color: rgb(83, 233, 225);
+    border-radius: 15px;
+    padding: 2px 8px; 
+}
+.badge-danger{
+    border-radius: 15px;
+    padding: 2px 8px; 
+}
+
+
+.sidebar-widget{
+    margin-bottom: 20px;
+}
+
+.settings-btn{
+    float: right;
+    background-color: #a749ff;
+    border: medium none;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    z-index: 9;
+
+}
+
+.settings-pagination{
+    width: 50%;
+}
+

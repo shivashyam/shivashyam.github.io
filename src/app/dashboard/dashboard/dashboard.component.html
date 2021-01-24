@@ -1,0 +1,225 @@
+
+<div class="container">
+    <app-navbar></app-navbar>
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <a routerLink="/orders">
+                        <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">24</h5>
+                    <p class="text-muted mb-0">Orders this month</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <a routerLink="/products">
+                        <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">{{products?.length}}</h5>
+                    <p class="text-muted mb-0">Products</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <a routerLink="/user/management">
+                        <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">{{users?.length}}</h5>
+                    <p class="text-muted mb-0">Users</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-pattern">
+                <div class="card-body">
+                    <div class="float-right">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <h5 class="font-size-20 mt-0 pt-1">06</h5>
+                    <p class="text-muted mb-0">Emails</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="form-group mb-0">
+                            <label>Search</label>
+                            <div class="input-group mb-0">
+                                <input type="text" class="form-control" placeholder="Search..." aria-describedby="project-search-addon" />
+                                <div class="input-group-append">
+                                    <button class="btn btn-danger" type="button" id="project-search-addon"><i class="fa fa-search search-icon font-12"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive project-list">
+                        <form class="form-inline my-2 my-lg-0 justify-content-end">
+                                    <h4>Orders</h4>
+                                    <input name="searchTerm" class="form-control mr-sm-2"  type="search" placeholder="Search...">
+                         </form>
+                        <table class="table project-table table-centered table-nowrap">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Start</th>
+                                    <th scope="col">Placed</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Siva Shyam</td>
+                                    <td>02/5/2019</td>
+                                    <td>02/5/2019</td>
+                                    <td>
+                                        <span class="badge-success"> Completed</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-pickup"> P</span>
+                                    </td>
+                                    <td>
+                                        <div class="action">
+                                            <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                            <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Siva Shyam</td>
+                                    <td>02/5/2019</td>
+                                    <td>02/5/2019</td>
+                                    <td>
+                                        <span class="badge-warning"> Pending</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-delivery"> D</span>
+                                    </td>
+                                    <td>
+                                        <div class="action">
+                                            <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                            <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Siva Shyam</td>
+                                    <td>02/5/2019</td>
+                                    <td>02/5/2019</td>
+                                    <td>
+                                        <span class="badge-success"> Completed</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-pickup"> P</span>
+                                    </td>
+                                    <td>
+                                        <div class="action">
+                                            <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                            <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Siva Shyam</td>
+                                    <td>02/5/2019</td>
+                                    <td>02/5/2019</td>
+                                    <td>
+                                        <span class="badge-danger"> Cancelled</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge-delivery"> D</span>
+                                    </td>
+                                    <td>
+                                        <div class="action">
+                                            <a href="#" class="text-success mr-4" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> <i class="fa fa-pencil h5 m-0"></i></a>
+                                            <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"> <i class="fa fa-remove h5 m-0"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end project-list -->
+
+                    <div class="pt-3">
+                        <ul class="pagination justify-content-end mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card bg-pattern">
+                    <div class="card-body">
+                        <h5 class="font-size-20 mt-0 pt-1">This month income</h5>
+                        <h3 class="font-weight-normal">$565</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card bg-pattern">
+                    <div class="card-body">
+                        <h5 class="font-size-20 mt-0 pt-1">This month expenses</h5>
+                        <h3 class="font-weight-normal">$565</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card bg-pattern">
+                    <div class="card-body">
+                        <h5 class="font-size-20 mt-0 pt-1">Yearly Income (To date)</h5>
+                        <h3 class="font-weight-normal">$565</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card bg-pattern">
+                    <div class="card-body">
+                        <h5 class="font-size-20 mt-0 pt-1">Yearly Expenses (To date)</h5>
+                        <h3 class="font-weight-normal">$565</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
